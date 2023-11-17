@@ -21,6 +21,7 @@ import os
 import random
 import time
 import tensorflow.compat.v1 as tf
+from tqdm import tqdm
 
 from model import tokenization
 from util import utils
@@ -236,7 +237,7 @@ def main():
       job = multiprocessing.Process(target=write_examples, args=(i, args))
       jobs.append(job)
       job.start()
-    for job in jobs:
+    for job in tqdm(jobs):
       job.join()
 
 
