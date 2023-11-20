@@ -32,6 +32,7 @@ from pretrain import pretrain_data
 from pretrain import pretrain_helpers
 from util import training_utils
 from util import utils
+import wandb
 
 
 class PretrainingModel(object):
@@ -424,7 +425,12 @@ def train_or_eval(config: configure_pretraining.PretrainingConfig):
 
   if config.do_train:
     utils.heading("Running training")
-    estimator.train(input_fn=pretrain_data.get_input_fn(config, True),
+    if config.wandb:
+      wandb.init(project="gp-electra", config=config)
+      estimator.train(input_fn=pretrain_data.get_input_fn(config, True),
+                    max_steps=config.num_train_steps, hooks=[wandb.tensorflow.WandbHook()])
+    else:
+      estimator.train(input_fn=pretrain_data.get_input_fn(config, True),
                     max_steps=config.num_train_steps)
   if config.do_eval:
     utils.heading("Running evaluation")
