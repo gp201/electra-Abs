@@ -105,6 +105,9 @@ class PretrainingConfig(object):
 
     self.max_predictions_per_seq = int((self.mask_prob + 0.005) *
                                        self.max_seq_length)
+    
+    self.wandb = True
+    self.wandb_project = 'electra'
 
     # debug-mode settings
     if self.debug:

@@ -427,7 +427,7 @@ def train_or_eval(config: configure_pretraining.PretrainingConfig):
     utils.heading("Running training")
     if config.wandb:
       wandb.login()
-      run = wandb.init(project="gp-electra", config=config)
+      run = wandb.init(project=config.wandb_project, name=config.model_name, config=config)
       estimator.train(input_fn=pretrain_data.get_input_fn(config, True),
                     max_steps=config.num_train_steps, hooks=[wandb.tensorflow.WandbHook()])
       run.finish()
