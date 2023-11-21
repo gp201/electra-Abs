@@ -30,6 +30,8 @@ class PretrainingConfig(object):
     self.debug = False  # debug mode for quickly running things
     self.do_train = True  # pre-train ELECTRA
     self.do_eval = False  # evaluate generator/discriminator on unlabeled data
+    self.wandb = True # log training with Weights & Biases
+    self.wandb_project = 'electra' # Weights & Biases project name
 
     # loss functions
     # train ELECTRA or Electric? if both are false, trains a masked LM like BERT
